@@ -1,0 +1,23 @@
+#!/bin/bash
+# Install Script
+
+cnf="/var/www/.config/pianobar/config"
+
+#Dependencies
+echo "Installing dependencies...\n"
+sudo apt install screen apache2 php5 mplayer
+
+#Add group accesses
+echo "Adding www-data to groups...\n"
+sudo usermod -a -G audio,gpio www-data
+
+#Copy pando script and config to run Pianobar
+sudo cp pando /usr/local/bin/
+sudo chmod 755 /usr/local/bin/pando
+if [ ! -d /var/www/.config/pianobar ] ; then mkdir -p /var/www/.config/pianobar; fi 
+sudo cp config/pianobar $cnf
+sudo chown www-data:www-data $cnf
+
+#Copy screenrc file
+sudo cp config/screenrc /var/www/.screenrc
+sudo chown www-data:www-data /var/www/.screenrc

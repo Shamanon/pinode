@@ -1,0 +1,2 @@
+# log screen session to ramdisk
+logfile /dev/shm/player.log
